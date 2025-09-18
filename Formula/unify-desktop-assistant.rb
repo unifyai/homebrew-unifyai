@@ -10,7 +10,7 @@ class UnifyDesktopAssistant < Formula
   depends_on "node" # required for npm/npx and ts-node
 
   def install
-    libexec.install "install.sh", "remote.sh", "tunnel.sh", "liveview.sh"
+    libexec.install "install.sh", "remote.sh", "tunnel.sh", "liveview.sh", "add-env.sh", "list-env.sh", "remove-env.sh"
     # Vendor agent-service if present in the repo (preserve directory)
     libexec.install "agent-service" if File.directory?("agent-service")
     chmod 0755, Dir[libexec/"*.sh"]
@@ -25,14 +25,25 @@ class UnifyDesktopAssistant < Formula
         start)   exec bash "$SCRIPTDIR/remote.sh" ;;
         tunnel)  exec bash "$SCRIPTDIR/tunnel.sh" ;;
         liveview) exec bash "$SCRIPTDIR/liveview.sh" ;;
+        add-env)
+          shift
+          exec bash "$SCRIPTDIR/add-env.sh" "$@"
+          ;;
+        list-env)
+          exec bash "$SCRIPTDIR/list-env.sh"
+          ;;
+        remove-env)
+          shift
+          exec bash "$SCRIPTDIR/remove-env.sh" "$@"
+          ;;
         version|-v|--version) echo "#{version}" ;;
         ""|-h|--help|help)
-          echo "Usage: unify-desktop-assistant {install|start|tunnel|liveview}"
+          echo "Usage: unify-desktop-assistant {install|start|tunnel|liveview|add-env|list-env|remove-env}"
           exit 0
           ;;
         *)
           echo "Unknown command: $cmd" >&2
-          echo "Usage: unify-desktop-assistant {install|start|tunnel|liveview}" >&2
+          echo "Usage: unify-desktop-assistant {install|start|tunnel|liveview|add-env|list-env|remove-env}" >&2
           exit 1
           ;;
       esac
