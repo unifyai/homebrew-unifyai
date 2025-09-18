@@ -9,12 +9,17 @@ Install the Unify Desktop Assistant CLI from our Homebrew tap:
 `brew install --HEAD unifyai/unifyai/unify-desktop-assistant`
 
 
-
 ### Local Setup 
 
 Watch this video for [local setup](https://www.loom.com/share/c6db63fa38d54ed8ac9591dec5ab1d8a?sid=ee5d12ed-3106-41fd-9f24-5ffd70a50fba).
 
-1. Install the required package
+1. Add the required environment variables, then install the required dependencies
+
+`unify-desktop-assistant add-env UNIFY_KEY <your-key-value>`
+
+`unify-desktop-assistant add-env ANTHROPIC_API_KEY <your-key-value>`
+
+`unify-desktop-assistant add-env UNIFY_BASE_URL https://api.unify.ai/v0`
 
 `unify-desktop-assistant install`
 
